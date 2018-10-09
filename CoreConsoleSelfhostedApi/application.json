@@ -1,0 +1,15 @@
+{
+  "exclude": [
+    "**/bin",
+    "**/bower_components",
+    "**/jspm_packages",
+    "**/node_modules",
+    "**/obj",
+    "**/platforms"
+  ],
+
+  "SomeConfigItem": {
+    "Token": "8201342s223u2uj328",
+    "BaseUrl": "http://localhost:5000"
+  }
+}
