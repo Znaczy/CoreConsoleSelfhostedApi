@@ -1,28 +1,75 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using CoreConsoleSelfhostedApi.EfDataAccess.Contexts;
+using CoreConsoleSelfhostedApi.EfDataAccess.Repositories;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceStack;
-using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace CoreConsoleSelfhostedApi
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public Startup(IConfiguration configuration)
         {
+            Configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            app.UseServiceStack(new AppHost());
+        public IConfiguration Configuration { get; }
 
-            app.Run(context =>
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddScoped<CompaniesRepository>();
+
+            var connectionString = Configuration["ConnectionStrings:CompaniesManagementConnection"];
+            services.AddDbContext<CompanyContext>(opt => opt.UseSqlServer(connectionString));
+            //services.AddDbContext<EmployeeContext>();
+
+            services.AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen(c =>
             {
-                context.Response.Redirect("/metadata");
-                return Task.FromResult(0);
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Core selfhosted API",
+                    Version = "v1"
+                });
             });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressConsumesConstraintForFormFileParameters = true;
+                options.SuppressInferBindingSourcesForParameters = true;
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddAutoMapper();
+        }
+
+        public void Configure(IApplicationBuilder app,
+                              IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+                c.RoutePrefix = string.Empty;
+            });
+            app.UseMvc();
         }
     }
 }
