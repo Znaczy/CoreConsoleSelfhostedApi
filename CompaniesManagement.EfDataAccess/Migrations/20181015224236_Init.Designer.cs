@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CoreConsoleSelfhostedApi.EfDataAccess.Migrations
+namespace CompaniesManagement.EfDataAccess.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    [Migration("20181014165609_Initial")]
-    partial class Initial
+    [Migration("20181015224236_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

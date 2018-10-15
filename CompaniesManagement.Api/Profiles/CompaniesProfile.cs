@@ -7,13 +7,9 @@ namespace CoreConsoleSelfhostedApi
     {
         public CompaniesProfile()
         {
-            CreateMap<EfDataAccess.Entities.Company, Company>()
-                //.ForMember(dest => dest.Employees, opt => opt.MapFrom(src => 
-                //$"{src.Employee.FirstName} {src.Employee.LastName}")
-                ;
+            CreateMap<EfDataAccess.Entities.Company, Company>();
 
             CreateMap<CompanyForCreation, EfDataAccess.Entities.Company>();
-
         }
     }
 }

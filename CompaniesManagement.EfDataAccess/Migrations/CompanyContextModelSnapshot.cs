@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CoreConsoleSelfhostedApi.EfDataAccess.Migrations
+namespace CompaniesManagement.EfDataAccess.Migrations
 {
     [DbContext(typeof(CompanyContext))]
     partial class CompanyContextModelSnapshot : ModelSnapshot

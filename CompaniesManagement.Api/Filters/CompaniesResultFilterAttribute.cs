@@ -18,7 +18,6 @@ namespace CoreConsoleSelfhostedApi.Filters
                 return;
             }
 
-
             await next();
         }
     }

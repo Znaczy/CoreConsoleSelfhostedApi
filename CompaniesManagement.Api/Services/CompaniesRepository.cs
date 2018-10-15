@@ -1,13 +1,14 @@
-﻿using CoreConsoleSelfhostedApi.EfDataAccess.Contexts;
+﻿using CompaniesManagement.Api.Services;
+using CoreConsoleSelfhostedApi.EfDataAccess.Contexts;
 using CoreConsoleSelfhostedApi.EfDataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CoreConsoleSelfhostedApi.EfDataAccess.Repositories
+namespace CoreConsoleSelfhostedApi.Repositories
 {
-    public class CompaniesRepository
+    public class CompaniesRepository : ICompaniesRepository
     {
         private readonly CompanyContext _context;
 
@@ -21,26 +22,37 @@ namespace CoreConsoleSelfhostedApi.EfDataAccess.Repositories
             return await _context.Companies.ToListAsync();
         }
 
-        public async Task<Company> GetCompanyAsync(long id)
+        public async Task<Company> GetCompanyByIdAsync(long id)
         {
             return await _context.Companies.FindAsync(id);
         }
 
         public long AddCompany(Company company)
         {
-            if(company == null)
+            if (company == null)
             {
                 throw new ArgumentNullException(nameof(company));
             }
             _context.Companies.Add(company);
             long id = company.Id;
-            
+
             return id;
         }
 
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync() > 0);
+        }
+
+        public long RemoveCompany(Company company)
+        {
+            if (company == null)
+            {
+                throw new ArgumentNullException(nameof(company));
+            }
+            _context.Remove(company);
+
+            return company.Id;
         }
 
         public async Task<long> AddCompanyAsync(Company company)
@@ -53,18 +65,9 @@ namespace CoreConsoleSelfhostedApi.EfDataAccess.Repositories
             return rowsAffected;
         }
 
-        //public async Task Delete(long id)
-        //{
-        //    var company = _context.Companies.Find(id);
-        //    if (company == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Companies.Remove(company);
-        //    _context.SaveChanges();
-
-        //    return NoContent();
-        //}
+        public void UpdateCompany(Company company)
+        {
+            _context.Update(company);
+        }
     }
 }

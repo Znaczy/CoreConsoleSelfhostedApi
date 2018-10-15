@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoreConsoleSelfhostedApi.EfDataAccess.Contexts;
-using CoreConsoleSelfhostedApi.EfDataAccess.Repositories;
+using CoreConsoleSelfhostedApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,6 @@ namespace CoreConsoleSelfhostedApi
 
             var connectionString = Configuration["ConnectionStrings:CompaniesManagementConnection"];
             services.AddDbContext<CompanyContext>(opt => opt.UseSqlServer(connectionString));
-            //services.AddDbContext<EmployeeContext>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

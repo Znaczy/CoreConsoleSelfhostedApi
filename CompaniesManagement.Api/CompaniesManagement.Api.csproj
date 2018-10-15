@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreConsoleSelfhostedApi.EfDataAccess\CoreConsoleSelfhostedApi.EfDataAccess.csproj" />
+    <ProjectReference Include="..\CompaniesManagement.EfDataAccess\CompaniesManagement.EfDataAccess.csproj" />
   </ItemGroup>
 
 </Project>
