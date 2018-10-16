@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using CoreConsoleSelfhostedApi.Repositories;
 using CoreConsoleSelfhostedApi.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CompaniesManagement.Api.Services;
 
 namespace CoreConsoleSelfhostedApi.Controllers
 {
@@ -14,10 +14,10 @@ namespace CoreConsoleSelfhostedApi.Controllers
     [Route("company")]
     public class CompanyController : ControllerBase
     {
-        private CompaniesRepository _companies;
+        private ICompaniesRepository _companies;
         private readonly IMapper _mapper;
 
-        public CompanyController(CompaniesRepository companies,
+        public CompanyController(ICompaniesRepository companies,
             IMapper mapper)
         {
             _companies = companies;

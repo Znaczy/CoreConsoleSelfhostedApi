@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CompaniesManagement.Api.Services
 {
-    interface ICompaniesRepository
+    public interface ICompaniesRepository
     {
         Task<List<Company>> GetCompaniesAsync();
         Task<Company> GetCompanyByIdAsync(long id);
@@ -12,5 +12,6 @@ namespace CompaniesManagement.Api.Services
         Task<bool> SaveChangesAsync();
         long RemoveCompany(Company company);
         Task<long> AddCompanyAsync(Company company);
+        void UpdateCompany(Company company);
     }
 }

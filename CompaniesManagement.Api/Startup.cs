@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CompaniesManagement.Api.Services;
 using CoreConsoleSelfhostedApi.EfDataAccess.Contexts;
 using CoreConsoleSelfhostedApi.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +23,7 @@ namespace CoreConsoleSelfhostedApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<CompaniesRepository>();
+            services.AddScoped<ICompaniesRepository, CompaniesRepository>();
 
             var connectionString = Configuration["ConnectionStrings:CompaniesManagementConnection"];
             services.AddDbContext<CompanyContext>(opt => opt.UseSqlServer(connectionString));
@@ -34,7 +35,7 @@ namespace CoreConsoleSelfhostedApi
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Title = "Core selfhosted API",
+                    Title = "Companies management API",
                     Version = "v1"
                 });
             });
